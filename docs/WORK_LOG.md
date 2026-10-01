@@ -589,3 +589,12 @@
   - `docs/`: 기준/기획/관리 문서 유지 (`PROJECT_OVERVIEW.md`, `WORK_LOG.md`, `ESS Project_GUIDE.md`, `SEVERSON2019_REVIEW.md`, `HANDOFF.md`, `30-ESSHealth-scratch.ipynb`).
 - 보고서 파일 내 상대 경로(`../../results/`, `../../notebooks/`) 및 `PROJECT_OVERVIEW.md`, `README.md` 디렉토리 트리 동기화 완료.
 
+
+### 2026-10-02 (Q3·Q4 별도 EDA 검토본 작성)
+
+- `notebooks/01_EDA_Q3-Q4.ipynb`에 독립 실행 가능한 Q3·Q4 검토본을 작성하고 코드 8셀을 직접 실행해 표·그래프 6개를 저장했다. 기존 `01_EDA.ipynb`, 후보 정의표와 보고서는 수정하지 않았다.
+- Q3: 상세 사이클과 summary 대응, Cycle 10·100의 원시 Qd 최댓값 일치, 공통 Vdlin·Qdlin의 길이·유한성을 점검했다. 139셀 모두 통과했고 라벨 보유 129셀의 ΔQ(V) 평균·최솟값·로그 분산을 계산했다. 실제 Vdlin은 2.0~3.5V, 1,000포인트다.
+- 로그 분산과 수명의 Pearson은 Batch 1 −0.886, Batch 2 −0.902, Batch 3 −0.702, Batch 1 Train 36셀 −0.872다. 동일 정책 평균을 뺀 Batch 1 45셀에서는 −0.072로, 정책 영향과 소표본 한계를 기록했다. Q3 통계값 간 중복도 확인했으며 로그 분산 하나를 CV 비교 후보로 제안했다. 최종 채택·학습은 수행하지 않았다.
+- Q4: 라벨 보유 셀의 정책을 첫 C-rate·전환 SOC·두 번째 C-rate·newstructure 표기로 구분하고 정책별 셀 수·수명·초기 용량 변화·최고온도를 비교했다. 첫 C-rate와 수명 상관은 Batch 1 −0.580, Batch 2 +0.191, Batch 3 −0.083으로, 모든 배치에 일률적인 고속충전 인과 설명을 적용하지 않는다.
+- Batch 1의 동일 5.4C 정책도 평균 수명이 546.5~966.5사이클이다. 정책당 표본은 21정책 2셀·1정책 3셀·1정책 1셀이다. 대표 3셀의 Cycle 10·100 실제 전류 패턴도 A 단위로 대조했다.
+- 결과 CSV와 PNG는 `results/q3_q4/`에 저장했다. 노트북 형식·실행 출력·6개 그래프를 확인했다. Batch 2·3 EDA 결과를 모델 선택에 사용하지 않으며, 검토 후 채택 여부를 결정한다.
