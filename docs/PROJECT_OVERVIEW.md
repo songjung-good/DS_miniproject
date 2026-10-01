@@ -50,6 +50,40 @@
 - EDA와 설계의 연결표를 작성하고, 운영 분포 변화·재학습·추가 현장 검증은 향후 제언으로 정리한다.
 - 비용 절감이나 안전성 효과, 목표 성능 달성을 필수 완료 기준으로 삼지 않는다. 실제 관측과 성능 차이를 설명한다.
 
+### 1.4 프로젝트 폴더 구조
+
+가이드 6.1절 샘플 및 실제 저장소 구현 기준 표준 디렉토리 구조:
+
+```text
+DS_miniproject/
+├── data/                            # 원본 데이터셋 (.mat 파일, 대용량 Git 제외)
+│   └── README.md                    # 데이터셋 출처 및 다운로드 안내
+├── notebooks/                       # 분석 및 모델링 단계별 Jupyter 노트북
+│   ├── 01_EDA.ipynb                 # EDA 5대 핵심 질문 및 데이터 탐색
+│   ├── 02_feature_engineering.ipynb # (DAY 2) 피처 엔지니어링 및 데이터셋 생성
+│   └── 03_modeling.ipynb            # (DAY 2) 모델 학습, 튜닝, 평가
+├── src/                             # 공통 파이프라인 모듈
+│   ├── preprocess.py                # .mat 파싱 및 데이터 정제 (클린 셀 필터링)
+│   ├── features.py                  # ΔQ(V) 등 요약 피처 생성 모듈
+│   └── train.py                     # 모델 학습 및 검증 파이프라인
+├── results/                         # 산출물 (표, 그래프, 최종 성능 지표)
+│   ├── clean_cells_manifest.csv     # 전처리 클린 셀 목록
+│   ├── candidate_features_definition.csv # 후보 피처 정의서
+│   ├── train_val_split_cells.csv    # Train / Valid 셀 분할 내역
+│   └── model_performance.csv        # (DAY 2) 가이드 양식 모델 성능 결과
+├── scripts/                         # 분석 자동화 및 보조 스크립트
+├── docs/                            # 프로젝트 문서, 가이드, 보고서 및 리소스
+│   ├── ESS Project_GUIDE.md         # 과제 수행 가이드 원문
+│   ├── PROJECT_OVERVIEW.md          # 본 실행 개요 문서
+│   ├── WORK_LOG.md                  # 작업 진행 이력 및 의사결정 로그
+│   ├── SEVERSON2019_REVIEW.md       # Severson et al. (2019) 논문 분석
+│   ├── HANDOFF.md                   # 작업 인계 문서
+│   ├── DAY1_DESIGN_DRAFT.md         # DAY 1 설계 보고서 초안
+│   └── 30-ESSHealth-scratch.ipynb   # 시작용 참고 노트북
+├── requirements.txt                 # Python 패키지 의존성
+└── README.md                        # 최종 제출용 프로젝트 안내 및 결과 요약
+```
+
 ## 2. 도메인 주요 내용
 
 ### 2.1 ESS와 구성 요소
