@@ -110,7 +110,3 @@ EDA 결과를 근거로 피처를 선정할 예정입니다. 회귀는 초기 10
 
 - Severson et al. (2019). Data-driven prediction of battery cycle life before capacity degradation. _Nature Energy_, 4, 383–391.
 - 데이터 다운로드: Kaggle `itshpark/data-driven-prediction-of-battery-cycle`
-
-## 팀 구성
-
-팀원 이름과 실제 담당 역할은 추후 작성합니다.
