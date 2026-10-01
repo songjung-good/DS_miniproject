@@ -5,13 +5,19 @@
 ## 프로젝트 개요
 
 - 데이터셋: MIT–Stanford Battery Dataset (Severson et al., Nature Energy 2019)
-- 학습·검증 데이터: Batch 1 (2017-05-12)
-- 최종 평가 데이터: Batch 2 (2018-02-20)
-- 추가 데이터: Batch 3 (2018-04-12), EDA에 포함하며 모델 추가 평가는 미정
-- 태스크: 회귀 또는 분류 중 선택 예정
-- 검증 방식: CV 없이 셀 단위 Hold-out. 과제의 CV 평균 보고 항목은 미실시로 명시합니다.
+- 태스크: 회귀 (Cycle Life 예측) 또는 분류 (장·단수명 분류) 중 선택
+- 검증 방식: CV 없이 셀 단위 Hold-out (과제의 CV 평균 보고 항목은 미실시 명시)
 
-현재는 프로젝트 설계와 예제 노트북 검토 단계입니다. 아래 분석 결과와 모델 성능은 실제 실행 후 작성합니다.
+### 원본 데이터 구성 (`data/`)
+
+| 파일명 | 크기 | 식별명 | 셀 수 | 역할 및 적용 범위 |
+| :--- | :--- | :--- | :---: | :--- |
+| `2017-05-12_batchdata_updated_struct_errorcorrect.mat` | ~2.8 GB | **Batch 1** | 46 | **Train & 내부 Hold-out 검증용** (필수) |
+| `2018-02-20_batchdata_updated_struct_errorcorrect.mat` | ~1.9 GB | **Batch 2** | 47 | **최종 일반화 Test용** (필수) |
+| `2018-04-12_batchdata_updated_struct_errorcorrect.mat` | ~3.0 GB | **Batch 3** | 46 | **추가 비교 분석용** (Batch 1·2 완료 후 진행) |
+| `2018-04-03_varcharge_batchdata_updated_struct_errorcorrect.mat` | ~85 MB | **Extra** | - | **본 과제 제외** (충전 최적화 연구 데이터) |
+
+*진행 원칙: Batch 1과 Batch 2를 기준으로 프로젝트 파이프라인(EDA → 피처 → 모델)을 완결한 뒤 Batch 3을 추가 평가에 활용합니다.*
 
 ## 파일 구조
 
