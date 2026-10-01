@@ -1,0 +1,9 @@
+피처명,원본 필드,계산 구간,산출 수식,단위,EDA 근거 및 채택 이유,처리 방안,상태
+q_diff_100_2,QDischarge,"Cycle 2, 100",Q100 - Q2,Ah,수명과 r=0.540; 동일 정책 내 r=0.024로 정책 영향 가능,스케일링·독립 예측력은 Train/Valid에서 검토,후보
+ir_diff_100_2,IR,"Cycle 2, 100",IR100 - IR2,Ω,수명과 r=0.142; 대부분 증가값이 아니어서 물리적 의미 미확인,측정값·분포 확인 후 사용 결정,보류
+t_max_100,Tmax,Cycle 2~100,max(Tmax[1:100]),°C,Batch 1 수명과 r=-0.400; 정책·다른 온도 변수 영향 미확인,60°C 클리핑 미적용; 이상값 원본 확인,후보
+delta_t_100,"Tmax, Tmin",Cycle 2~100,max(Tmax[1:100]) - min(Tmin[1:100]),°C,Tmax와 r=0.969로 중복 가능,Tmax와 동시 사용 전 중복 검토,보류
+ch_time_avg_min,chargetime,Cycle 2~100,mean(chargetime[1:100]),min,Cycle 13 약 419분 기록 3셀의 평균에 영향; 원인 미확인,원본 유지; 대체·중앙값 사용은 보류,보류
+charge_c1_rate,policy,예측 시점에 알려진 정책,정책 문자열의 첫 C-rate 파싱,C-rate,Q1에서 정책별 수명 차이 관측; Q4 인과 분석 미완료,파싱·인코딩·정책별 표본 수 확인,후보
+delta_q_log_var,"Qdlin, V","Cycle 10, 100",log10(Var(Q100(V) - Q10(V))),log(Ah²),Severson(2019) 문헌 후보; 현재 데이터에서 Q3 미실시,전압 축 정렬·0값·비유한 값 확인,보류
+n_cycles,summary.cycle,전체 기록,기록 종료 시점 총 사이클 수,cycles,예측 시점 이후에만 알 수 있는 사후 정보,모델 입력에서 제외,제외
