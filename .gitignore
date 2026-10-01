@@ -182,4 +182,7 @@ cython_debug/
 
 # Local dataset (download from Kaggle; see README.md)
 /archive/
+/data/*.mat
+/data/*.pkl
+/data/*.h5
 .DS_Store
