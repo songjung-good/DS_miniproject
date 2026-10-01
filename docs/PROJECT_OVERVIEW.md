@@ -73,12 +73,18 @@ DS_miniproject/
 │   └── model_performance.csv        # (DAY 2) 가이드 양식 모델 성능 결과
 ├── scripts/                         # 분석 자동화 및 보조 스크립트
 ├── docs/                            # 프로젝트 문서, 가이드, 보고서 및 리소스
+│   ├── reports/                     # 산출물 (설계 보고서, 제출용 HTML/PDF, 초안)
+│   │   ├── DAY1_DESIGN_DRAFT.md
+│   │   ├── DS-MINI-Design-Report.md
+│   │   ├── DS-MINI-Design-Report.html
+│   │   ├── DS-MINI-Design-울산_4반-배영환.html
+│   │   └── DS-MINI-Design-울산_4반-배영환-v2.html
+│   ├── assets/                      # 참고 이미지 및 스크린샷 (Screenshot *.png)
 │   ├── ESS Project_GUIDE.md         # 과제 수행 가이드 원문
 │   ├── PROJECT_OVERVIEW.md          # 본 실행 개요 문서
 │   ├── WORK_LOG.md                  # 작업 진행 이력 및 의사결정 로그
 │   ├── SEVERSON2019_REVIEW.md       # Severson et al. (2019) 논문 분석
 │   ├── HANDOFF.md                   # 작업 인계 문서
-│   ├── DAY1_DESIGN_DRAFT.md         # DAY 1 설계 보고서 초안
 │   └── 30-ESSHealth-scratch.ipynb   # 시작용 참고 노트북
 ├── requirements.txt                 # Python 패키지 의존성
 └── README.md                        # 최종 제출용 프로젝트 안내 및 결과 요약
@@ -368,7 +374,7 @@ Hold-out을 사용한다고 충전 프로토콜 중복이 자동으로 사라지
 - [Severson et al. (2019) 논문 검토](./SEVERSON2019_REVIEW.md) — 제공 PDF의 본문·표·Methods 근거와 공식 코드 확인 사항
 - `domain.md` — 이전 개요에서 참조한 원문으로, 현재 저장소에는 없음
 - [예제 노트북](./30-ESSHealth-scratch.ipynb)
-- `docs/`의 첨부 스크린샷 8개: 배터리·ESS 개념, 논문 초록, EDA·모델 전략 예시
+- `docs/assets/`의 첨부 스크린샷 8개: 배터리·ESS 개념, 논문 초록, EDA·모델 전략 예시
 - [데이터셋 링크 — 원자료에 기재된 Kaggle](https://www.kaggle.com/datasets/itshpark/data-driven-prediction-of-battery-cycle)
 - [원논문 링크 — Severson et al. (2019), Nature Energy](https://www.nature.com/articles/s41560-019-0356-8)
 

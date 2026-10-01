@@ -580,3 +580,12 @@
 - `docs/DS-MINI-Design-Report.md` 도입부에 Q1·Q2·Q5 일부 분석, Step 6 과제·후보 정의, Step 7 분할·평가 설계의 완료 범위를 연결했다.
 - Step 7 본문에 저장된 분할 명세의 재현성, 550 미만 셀의 Train 1/Validation 0 분포, 정책 중복 8종과 Validation 전용 정책 1종을 명시했다. EDA 관측에서 설계 결정으로 이어지는 근거표와 미검증 항목을 추가했다.
 - 모델 전처리·학습·성능 평가는 아직 수행하지 않았으며 CV는 미실시다.
+
+### 2026-10-01 (docs 폴더 구조 개편: 산출물과 기존 문서 분리)
+
+- 사용자 요청에 따라 `docs/` 내부를 역할별로 분리:
+  - `docs/reports/`: 작성 산출물 모음 (`DAY1_DESIGN_DRAFT.md`, `DS-MINI-Design-Report.md`, HTML 보고서 3종).
+  - `docs/assets/`: 참고 이미지 및 스크린샷 8개 (`Screenshot *.png`).
+  - `docs/`: 기준/기획/관리 문서 유지 (`PROJECT_OVERVIEW.md`, `WORK_LOG.md`, `ESS Project_GUIDE.md`, `SEVERSON2019_REVIEW.md`, `HANDOFF.md`, `30-ESSHealth-scratch.ipynb`).
+- 보고서 파일 내 상대 경로(`../../results/`, `../../notebooks/`) 및 `PROJECT_OVERVIEW.md`, `README.md` 디렉토리 트리 동기화 완료.
+

@@ -28,6 +28,8 @@
 ├── src/                             # 전처리, 피처 추출, 모델 학습 모듈
 ├── results/                         # 모델 평가 지표 및 산출물
 ├── docs/                            # 프로젝트 개요, 과제 가이드, 작업 기록
+│   ├── reports/                     # 산출물 (설계 보고서, 제출용 HTML/PDF)
+│   └── assets/                      # 참고 이미지 및 스크린샷
 ├── requirements.txt                 # 패키지 의존성
 └── README.md
 ```
