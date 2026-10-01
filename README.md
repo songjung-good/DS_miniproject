@@ -30,10 +30,20 @@
 
 ## 환경 설정
 
-필요한 패키지를 설치합니다.
+`uv`를 사용하여 가상환경을 생성하고 의존성을 설치합니다.
 
 ```bash
-pip install -r requirements.txt
+# 1. 가상환경 생성 (Python 3.11 권장)
+uv venv --python 3.11
+
+# 2. 가상환경 활성화
+source .venv/bin/activate
+
+# 3. 의존성 설치
+uv pip install -r requirements.txt
+
+# 4. Jupyter 커널 등록
+python -m ipykernel install --user --name ds_miniproject --display-name "Python (ds_miniproject)"
 ```
 
 ### 데이터 다운로드

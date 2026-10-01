@@ -53,7 +53,7 @@
 - 프로젝트 표준 디렉토리 구조 확립 (`data/`, `notebooks/`, `src/`, `results/`, `docs/`, `requirements.txt`).
 - `archive/`의 데이터 파일들을 `data/`로 이동하고 `.gitignore`에 `/data/*.mat` 등 대용량 데이터 패턴 추가.
 - `requirements.txt` 및 `data/README.md` 생성 완료.
-- `README.md` 내 디렉토리 구조 반영.
+- `README.md` 내 디렉토리 구조 및 uv 기반 환경 설정 가이드 반영.
 
 ### 오늘 진행 계획
 
