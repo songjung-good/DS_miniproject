@@ -1,0 +1,8 @@
+{
+  "evaluated_at_utc": "2026-10-02T00:06:00.201748+00:00",
+  "candidate_id": "Ridge_C_policy_alpha0.1",
+  "test_cells": 39,
+  "n_test_evaluations": 1,
+  "test_mape_pct": 58.732870437374,
+  "rule": "No candidate selection or retuning after test"
+}

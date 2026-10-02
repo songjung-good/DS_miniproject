@@ -1,0 +1,213 @@
+{
+  "seed": 42,
+  "cv_folds": 3,
+  "selection": "minimum Train CV mean MAPE, then std, then candidate ID",
+  "target": "cycle_life (원 단위)",
+  "feature_sets": {
+    "A_summary": [
+      "q_diff_100_2",
+      "t_max_100"
+    ],
+    "B_voltage": [
+      "q_diff_100_2",
+      "t_max_100",
+      "delta_q_log_var"
+    ],
+    "C_policy": [
+      "q_diff_100_2",
+      "t_max_100",
+      "delta_q_log_var",
+      "charge_c1_rate",
+      "charge_c2_rate",
+      "charge_switch_soc"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "Dummy_median",
+      "feature_set": "A_summary",
+      "model": "Dummy",
+      "params": {}
+    },
+    {
+      "id": "Ridge_A_summary_alpha0.1",
+      "feature_set": "A_summary",
+      "model": "Ridge",
+      "params": {
+        "alpha": 0.1
+      }
+    },
+    {
+      "id": "Ridge_A_summary_alpha1.0",
+      "feature_set": "A_summary",
+      "model": "Ridge",
+      "params": {
+        "alpha": 1.0
+      }
+    },
+    {
+      "id": "Ridge_A_summary_alpha10.0",
+      "feature_set": "A_summary",
+      "model": "Ridge",
+      "params": {
+        "alpha": 10.0
+      }
+    },
+    {
+      "id": "RF_A_summary_depth2_leaf3",
+      "feature_set": "A_summary",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_A_summary_depth2_leaf5",
+      "feature_set": "A_summary",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 5
+      }
+    },
+    {
+      "id": "RF_A_summary_depth3_leaf3",
+      "feature_set": "A_summary",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_A_summary_depth3_leaf5",
+      "feature_set": "A_summary",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 5
+      }
+    },
+    {
+      "id": "Ridge_B_voltage_alpha0.1",
+      "feature_set": "B_voltage",
+      "model": "Ridge",
+      "params": {
+        "alpha": 0.1
+      }
+    },
+    {
+      "id": "Ridge_B_voltage_alpha1.0",
+      "feature_set": "B_voltage",
+      "model": "Ridge",
+      "params": {
+        "alpha": 1.0
+      }
+    },
+    {
+      "id": "Ridge_B_voltage_alpha10.0",
+      "feature_set": "B_voltage",
+      "model": "Ridge",
+      "params": {
+        "alpha": 10.0
+      }
+    },
+    {
+      "id": "RF_B_voltage_depth2_leaf3",
+      "feature_set": "B_voltage",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_B_voltage_depth2_leaf5",
+      "feature_set": "B_voltage",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 5
+      }
+    },
+    {
+      "id": "RF_B_voltage_depth3_leaf3",
+      "feature_set": "B_voltage",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_B_voltage_depth3_leaf5",
+      "feature_set": "B_voltage",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 5
+      }
+    },
+    {
+      "id": "Ridge_C_policy_alpha0.1",
+      "feature_set": "C_policy",
+      "model": "Ridge",
+      "params": {
+        "alpha": 0.1
+      }
+    },
+    {
+      "id": "Ridge_C_policy_alpha1.0",
+      "feature_set": "C_policy",
+      "model": "Ridge",
+      "params": {
+        "alpha": 1.0
+      }
+    },
+    {
+      "id": "Ridge_C_policy_alpha10.0",
+      "feature_set": "C_policy",
+      "model": "Ridge",
+      "params": {
+        "alpha": 10.0
+      }
+    },
+    {
+      "id": "RF_C_policy_depth2_leaf3",
+      "feature_set": "C_policy",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_C_policy_depth2_leaf5",
+      "feature_set": "C_policy",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 2,
+        "min_samples_leaf": 5
+      }
+    },
+    {
+      "id": "RF_C_policy_depth3_leaf3",
+      "feature_set": "C_policy",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 3
+      }
+    },
+    {
+      "id": "RF_C_policy_depth3_leaf5",
+      "feature_set": "C_policy",
+      "model": "RandomForest",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 5
+      }
+    }
+  ]
+}
