@@ -185,4 +185,5 @@ cython_debug/
 /data/*.mat
 /data/*.pkl
 /data/*.h5
+/data/reference_official/
 .DS_Store

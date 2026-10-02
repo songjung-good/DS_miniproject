@@ -1,0 +1,6 @@
+b1_cell,official_continuation_cell,original_policy,continuation_policy,original_label,continuation_records,official_code_candidate_label,first_observed_EOL,last_capacity_before,first_capacity_after,last_capacity_after,policy_suffix_matches,length_matches
+Batch1_c00,Official20170630_c07,3.6C(80%)-3.6C,80%)-3.6C,1190.0,662,1852.0,,1.0262098,1.0219246,0.88280821,True,True
+Batch1_c01,Official20170630_c08,3.6C(80%)-3.6C,80%)-3.6C,1179.0,981,2160.0,,1.0382246,1.0245416,0.88000232,True,True
+Batch1_c02,Official20170630_c09,3.6C(80%)-3.6C,80%)-3.6C,1177.0,1060,2237.0,,1.0432786,1.0295508,0.88067055,True,True
+Batch1_c03,Official20170630_c15,4C(80%)-4C,80%)-4C,1226.0,208,1434.0,,0.97092122,0.97206396,0.88012493,True,True
+Batch1_c04,Official20170630_c16,4C(80%)-4C,80%)-4C,1227.0,482,1709.0,,1.0219597,1.0074891,0.88004041,True,True
