@@ -138,5 +138,10 @@ def run_experiment(root):
 
 
 if __name__ == "__main__":
-    _, performance = run_experiment(Path(__file__).resolve().parents[1])
+    project_root = Path(__file__).resolve().parents[1]
+    if (project_root / "results/modeling/test_evaluation.json").exists():
+        print("이미 완료된 Batch 2 평가는 반복하지 않고 저장된 결과를 표시합니다.")
+        performance = pd.read_csv(project_root / "results/model_performance.csv")
+    else:
+        _, performance = run_experiment(project_root)
     print(performance.to_string(index=False))

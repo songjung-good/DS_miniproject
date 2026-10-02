@@ -7,3 +7,4 @@ mat73
 h5py
 scikit-learn
 jupyter
+joblib

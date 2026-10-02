@@ -5,8 +5,8 @@
 ## 프로젝트 개요
 
 - 데이터셋: MIT–Stanford Battery Dataset (Severson et al., Nature Energy 2019)
-- 태스크: 회귀 (Cycle Life 예측) 또는 분류 (장·단수명 분류) 중 선택
-- 검증 방식: CV 없이 셀 단위 Hold-out (과제의 CV 평균 보고 항목은 미실시 명시)
+- 태스크: 초기 100사이클 기반 Cycle Life 회귀
+- 검증 방식: Batch 1 Train 36셀의 3-fold CV, Hold-out 10셀, Batch 2 Test 39셀
 
 ### 원본 데이터 구성 (`data/`)
 
@@ -75,48 +75,40 @@ print("Path to dataset files:", path)
 python -m jupyter notebook
 ```
 
-노트북을 열고 데이터 경로를 설정한 뒤 셀을 위에서 아래로 실행합니다. 현재 참고 노트북에 저장된 출력과 해석은 이번 프로젝트에서 새로 검증한 결과가 아닙니다.
+노트북을 열고 데이터 경로를 설정한 뒤 셀을 위에서 아래로 실행합니다. `01_EDA.ipynb`는 통합 EDA, `02_Modeling.ipynb`는 1차 모델 실행·평가 결과입니다. 이미 완료된 Batch 2 평가는 저장 결과를 읽습니다.
 
 ## EDA
 
 Batch 1·2·3을 비교하고, 각 질문의 관측 결과와 모델 설계에 반영할 내용을 작성합니다.
 
-- **Cycle Life 분포:** 분포 형태, 장·단수명 비율, 수명이 유독 짧은 셀 분석 — 결과 작성 예정
-- **열화 곡선:** 셀별 용량 감소, 열화 속도, knee point 분석 — 결과 작성 예정
-- **ΔQ(V) 곡선:** `Q100(V) - Q10(V)`와 장·단수명 셀의 차이 분석 — 결과 작성 예정
-- **충전 조건과 수명:** C-rate·충전 프로토콜별 수명 비교 — 결과 작성 예정
-- **초기 신호와 수명:** 초기 피처의 상관관계와 다중공선성 분석 — 결과 작성 예정
+- Q1·Q2: 배치별 수명 분포와 Batch 1 초기 총 방전용량 변화를 확인했습니다.
+- Q3: ΔQ(V) 로그 분산은 수명과 연관되지만 정책 영향과 후보 간 중복을 확인했습니다.
+- Q4: 첫 C-rate 단독으로 배치별 수명을 설명하기 어렵고 두 번째 C-rate·전환 SOC도 검토했습니다.
+- Q5: 초기 요약 지표·곡선 통계와 수명 관계를 일부 검증했습니다. 인과관계는 확정하지 않았습니다.
 
-## Modeling
+## Modeling — 1차 검토 결과
 
-### 피처 엔지니어링 전략
+기존 36:10 셀 분할을 유지하고 Train 내부 CV의 동일 fold로 Dummy·Ridge·얕은 RandomForest 22개 후보를 비교했습니다. CV 최저 MAPE로 고른 모델은 **StandardScaler + Ridge(alpha=0.1)**입니다. 입력은 용량 변화·최고온도·ΔQ(V) 로그 분산·첫 C-rate·두 번째 C-rate·전환 SOC의 6개입니다. 전처리는 fold별 학습 부분에서만 적합했습니다.
 
-EDA 결과를 근거로 피처를 선정할 예정입니다. 회귀는 초기 100사이클, 분류는 초기 5사이클을 사용하며, 분류 입력에 `Q100 - Q10`을 포함하지 않습니다.
+| 평가 대상 | 셀 수 | MAPE |
+| --- | ---: | ---: |
+| Train 3-fold CV | 36 | 9.88% |
+| Validation | 10 | 8.93% |
+| Batch 2 Test | 39 | 58.73% |
 
-### 모델 선택 및 근거
+Valid−Train(CV 평균)은 −0.95%p, Test−Valid는 +49.80%p, Test−목표 9.1%는 +49.63%p입니다. 최종 Test 목표를 달성하지 못했습니다.
 
-- 후보 모델: 미정
-- 최종 모델: 미정
-- 선택 이유: EDA와 동일한 Hold-out 분할의 후보 모델 비교 결과를 바탕으로 작성 예정
+Batch 2 일반 표기 셀의 수명을 크게 과대예측했습니다. 일반 표기 30셀의 MAPE는 72.34%, newstructure 9셀은 13.38%입니다. 배치·정책·입력 범위 차이를 고려해야 하며, Test 결과를 보고 모델을 다시 튜닝하지 않았습니다. EDA에서 Batch 1 전체 라벨과 Batch 2 라벨 분포를 관측한 한계도 보고합니다.
 
-동일 셀의 사이클은 학습·검증 양쪽에 나누지 않습니다. 전처리는 학습 데이터에서만 학습하고, Batch 2를 이용해 모델을 튜닝하지 않습니다.
+[실행 결과 노트북](notebooks/02_Modeling.ipynb), [1차 결과 보고서](docs/reports/DAY2_MODEL_RESULT.md), [성능 CSV](results/model_performance.csv)를 참고하세요.
 
-## 성능 결과
+```bash
+# 최초 실행은 피처 계산·CV 선택·고정 모델 평가, 이후 실행은 저장 성능 표시
+python -m src.models
 
-모델 평가 후 과제 양식에 맞춰 작성합니다.
-
-- Train (Batch 1 CV): 미실시
-- Valid (Batch 1 Hold-out): 평가 예정
-- Test (Batch 2): 평가 예정
-- Gap (Train-Valid): CV 미실시로 산출하지 않음
-- Gap (Valid-Test), Gap (Target-Test): 평가 후 산출
-
-회귀 선택 시 MAPE(%), 분류 선택 시 F1-Score와 Accuracy를 보고합니다. 목표 수치, Gap 계산식 및 F1 정의는 태스크 확정 후 명시합니다.
-
-## 오류 분석
-
-- 예측 오차가 큰 셀의 특성과 충전 조건: 평가 후 작성
-- 원인 가설 및 개선 방향: 평가 후 작성
+# 데이터 대응·전처리·점수 계산·재평가 방지 확인
+python -m unittest discover -s tests -v
+```
 
 ## ESS 도메인 해석
 
