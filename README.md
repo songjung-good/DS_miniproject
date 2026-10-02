@@ -92,13 +92,16 @@ Batch 1·2·3을 비교하고, 각 질문의 관측 결과와 모델 설계에 �
 
 기존 36:10 셀 분할을 유지하고 Train 내부 CV의 동일 fold로 Dummy·Ridge·얕은 RandomForest 22개 후보를 비교했습니다. CV 최저 MAPE로 고른 모델은 **StandardScaler + Ridge(alpha=0.1)**입니다. 입력은 용량 변화·최고온도·ΔQ(V) 로그 분산·첫 C-rate·두 번째 C-rate·전환 SOC의 6개입니다. 전처리는 fold별 학습 부분에서만 적합했습니다.
 
-| 평가 대상 | 셀 수 | MAPE |
-| --- | ---: | ---: |
-| Train 3-fold CV | 36 | 9.88% |
-| Validation | 10 | 8.93% |
-| Batch 2 Test | 39 | 58.73% |
+| 구분 | 값 | 단위 |
+| --- | ---: | --- |
+| Train 3-fold CV (36셀) | 9.88 | % |
+| Validation (10셀) | 8.93 | % |
+| Batch 2 Test (39셀) | 58.73 | % |
+| Gap: Valid−Train CV | −0.95 | %p |
+| Gap: Test−Valid | +49.80 | %p |
+| Gap: Test−목표 9.1% | +49.63 | %p |
 
-Valid−Train(CV 평균)은 −0.95%p, Test−Valid는 +49.80%p, Test−목표 9.1%는 +49.63%p입니다. 최종 Test 목표를 달성하지 못했습니다.
+MAPE는 낮을수록 좋으며 Gap은 뒤 단계−앞 단계로 계산합니다. 양수는 비교 대상보다 오차가 커졌다는 뜻입니다. `results/model_performance.csv`에 동일한 6행을 저장했습니다. `value`·`unit`을 함께 읽고, 점수 행의 `MAPE_pct`·`MAE_cycles`·`RMSE_cycles`와 Gap 행을 구분합니다. 목표 미달은 분석 결과와 한계로 보고합니다.
 
 Batch 2 일반 표기 셀의 수명을 크게 과대예측했습니다. 일반 표기 30셀의 MAPE는 72.34%, newstructure 9셀은 13.38%입니다. 배치·정책·입력 범위 차이를 고려해야 하며, Test 결과를 보고 모델을 다시 튜닝하지 않았습니다. EDA에서 Batch 1 전체 라벨과 Batch 2 라벨 분포를 관측한 한계도 보고합니다.
 
@@ -122,3 +125,14 @@ python -m unittest discover -s tests -v
 
 - Severson et al. (2019). Data-driven prediction of battery cycle life before capacity degradation. _Nature Energy_, 4, 383–391.
 - 데이터 다운로드: Kaggle `itshpark/data-driven-prediction-of-battery-cycle`
+
+## 수행자와 업무 역할
+
+개인 프로젝트이며 모든 업무는 배영환이 수행했습니다. 역할은 담당자 분업이 아니라 수행 업무의 구분입니다.
+
+| 역할 | 주요 업무 |
+| --- | --- |
+| 데이터·EDA | 데이터 구조·품질 점검, Q1~Q5 분석, 배치별 특징과 시사점 도출 |
+| 피처·전처리 | 후보·계산식·단위 정의, 원본 대조, 다중공선성·누수 점검 |
+| 모델·평가 | 셀 분할·CV, 모델 비교·선택, 성능·Gap·오류 분석 |
+| 보고·재현성 | 보고서·README·작업 기록, 실행 검증, 산출물 정리·제출 준비 |

@@ -24,6 +24,21 @@ def metrics(y, predicted):
             "RMSE_cycles": float(np.sqrt(mean_squared_error(y, predicted)))}
 
 
+def reporting_table(scores):
+    """점수(%)와 뒤 단계−앞 단계 Gap(%p)을 필수 6행 표로 묶는다."""
+    rows = scores.set_index("split").loc[["Train_CV", "Valid", "Test_Batch2"]].reset_index().copy()
+    rows["value"] = rows.MAPE_pct
+    rows["unit"] = "%"
+    train, valid, test = rows.MAPE_pct
+    gaps = pd.DataFrame({
+        "split": ["Valid_minus_TrainCV", "Test_minus_Valid", "Test_minus_9.1"],
+        "value": [valid - train, test - valid, test - 9.1],
+        "unit": "%p",
+        "candidate_id": rows.candidate_id.iloc[0],
+    })
+    return pd.concat([rows, gaps], ignore_index=True)
+
+
 def candidates():
     specs = [{"id": "Dummy_median", "feature_set": "A_summary", "model": "Dummy", "params": {}}]
     for group in FEATURE_SETS:
@@ -118,7 +133,8 @@ def run_experiment(root):
         {"split": "Test_Batch2", "n_cells": 39, **metrics(test.cycle_life, test_pred)},
     ])
     result["candidate_id"] = selected_id
-    result.to_csv(root / "results/model_performance.csv", index=False)
+    report = reporting_table(result)
+    report.to_csv(root / "results/model_performance.csv", index=False)
     pred_frames = []
     for role, part, pred in [("Train_CV", train, cv_pred), ("Valid", valid, valid_pred), ("Test_Batch2", test, test_pred)]:
         frame = part[["batch", "cell_id", "policy", "cycle_life"]].copy()
@@ -128,9 +144,10 @@ def run_experiment(root):
         frame["APE_pct"] = abs(frame.error_cycles) / frame.cycle_life * 100
         pred_frames.append(frame)
     pd.concat(pred_frames, ignore_index=True).to_csv(out / "cell_predictions.csv", index=False)
-    train_score, valid_score, test_score = result.MAPE_pct
-    pd.DataFrame({"gap": ["Valid_minus_TrainCV", "Test_minus_Valid", "Test_minus_9.1"],
-                  "gap_percentage_points": [valid_score-train_score, test_score-valid_score, test_score-9.1]}).to_csv(out / "performance_gaps.csv", index=False)
+    test_score = result.loc[result.split == "Test_Batch2", "MAPE_pct"].iloc[0]
+    report.loc[report.unit == "%p", ["split", "value"]].rename(
+        columns={"split": "gap", "value": "gap_percentage_points"}
+    ).to_csv(out / "performance_gaps.csv", index=False)
     (out / "test_evaluation.json").write_text(json.dumps({"evaluated_at_utc": datetime.now(timezone.utc).isoformat(),
         "candidate_id": selected_id, "test_cells": 39, "n_test_evaluations": 1,
         "test_mape_pct": test_score, "rule": "No candidate selection or retuning after test"}, indent=2))

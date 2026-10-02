@@ -8,13 +8,24 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_percentage_error
 
-from src.models import run_experiment
+from src.models import reporting_table, run_experiment
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results/modeling"
 
 
 class ModelingChecks(unittest.TestCase):
+    def test_reporting_table_preserves_scores_and_gap_units(self):
+        saved = pd.read_csv(ROOT / "results/model_performance.csv")
+        report = reporting_table(saved)
+        self.assertEqual(len(saved), 6)
+        self.assertEqual(report.unit.tolist(), ["%", "%", "%", "%p", "%p", "%p"])
+        np.testing.assert_allclose(saved.value, report.value, atol=1e-12)
+        gaps = pd.read_csv(OUT / "performance_gaps.csv").set_index("gap")
+        for _, row in report[report.unit == "%p"].iterrows():
+            self.assertAlmostEqual(row.value, gaps.loc[row.split, "gap_percentage_points"], places=10)
+        self.assertTrue(saved.loc[saved.unit == "%p", "MAPE_pct"].isna().all())
+
     def test_features_match_independent_eda(self):
         eda = pd.read_csv(ROOT / "results/q3_q4/q3_cell_features.csv").set_index("cell_id")
         policies = pd.read_csv(ROOT / "results/q3_q4/q4_cell_features.csv").set_index("cell_id")
