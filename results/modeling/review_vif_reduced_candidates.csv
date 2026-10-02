@@ -1,0 +1,17 @@
+feature,VIF,configuration
+q_diff_100_2,2.7311054187594475,six_features
+t_max_100,1.3367648567386192,six_features
+delta_q_log_var,3.8627924245889713,six_features
+charge_c1_rate,9.562381682729274,six_features
+charge_c2_rate,1.7681095280166899,six_features
+charge_switch_soc,6.551976737955077,six_features
+q_diff_100_2,2.6619079040318576,without_switch_soc
+t_max_100,1.33676472264252,without_switch_soc
+delta_q_log_var,3.122196907157862,without_switch_soc
+charge_c1_rate,2.1917235070619427,without_switch_soc
+charge_c2_rate,1.7352326592487168,without_switch_soc
+q_diff_100_2,2.701566621286042,without_c1
+t_max_100,1.3243567086599068,without_c1
+delta_q_log_var,2.3183150535296613,without_c1
+charge_c2_rate,1.7679179496973558,without_c1
+charge_switch_soc,1.5017306264019086,without_c1
