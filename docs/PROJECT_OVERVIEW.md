@@ -60,24 +60,21 @@ DS_miniproject/
 │   └── README.md                    # 데이터셋 출처 및 다운로드 안내
 ├── notebooks/                       # 분석 및 모델링 단계별 Jupyter 노트북
 │   ├── 01_EDA.ipynb                 # EDA 5대 핵심 질문 및 데이터 탐색
-│   ├── 02_feature_engineering.ipynb # (DAY 2) 피처 엔지니어링 및 데이터셋 생성
-│   └── 03_modeling.ipynb            # (DAY 2) 모델 학습, 튜닝, 평가
+│   ├── 01_EDA_Q3-Q4.ipynb           # Q3·Q4 독립 검토 기록
+│   └── 02_Modeling.ipynb            # 모델 비교·평가 및 검토 결과
 ├── src/                             # 공통 파이프라인 모듈
 │   ├── preprocess.py                # .mat 파싱 및 데이터 정제 (클린 셀 필터링)
 │   ├── features.py                  # ΔQ(V) 등 요약 피처 생성 모듈
-│   └── train.py                     # 모델 학습 및 검증 파이프라인
+│   └── models.py                    # 모델 학습 및 검증 파이프라인
 ├── results/                         # 산출물 (표, 그래프, 최종 성능 지표)
 │   ├── clean_cells_manifest.csv     # 전처리 클린 셀 목록
 │   ├── candidate_features_definition.csv # 후보 피처 정의서
 │   ├── train_val_split_cells.csv    # Train / Valid 셀 분할 내역
 │   └── model_performance.csv        # (DAY 2) 가이드 양식 모델 성능 결과
-├── scripts/                         # 분석 자동화 및 보조 스크립트
 ├── docs/                            # 프로젝트 문서, 가이드, 보고서 및 리소스
 │   ├── reports/                     # 산출물 (설계 보고서, 제출용 HTML/PDF, 초안)
 │   │   ├── DAY1_DESIGN_DRAFT.md
 │   │   ├── DS-MINI-Design-Report.md
-│   │   ├── DS-MINI-Design-Report.html
-│   │   ├── DS-MINI-Design-울산_4반-배영환.html
 │   │   └── DS-MINI-Design-울산_4반-배영환-v2.html
 │   ├── assets/                      # 참고 이미지 및 스크린샷 (Screenshot *.png)
 │   ├── ESS Project_GUIDE.md         # 과제 수행 가이드 원문
