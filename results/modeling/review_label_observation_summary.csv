@@ -1,0 +1,5 @@
+batch,split,status,cells
+Batch1,train,unobserved_EOL_in_current_record,36
+Batch1,val,unobserved_EOL_in_current_record,10
+Batch2,test_pool,missing_or_invalid_label,8
+Batch2,test_pool,observed_EOL_label_matches,39
